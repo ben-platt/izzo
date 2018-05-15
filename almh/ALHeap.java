@@ -49,7 +49,8 @@ public class ALHeap
      * Postcondition: Heap remains unchanged.
      *****************************************************/
     public Integer peekMin()
-    { 
+    {
+	return _heap.get(0);
     }//O(?)
 
 
@@ -59,7 +60,8 @@ public class ALHeap
      * Postcondition: Tree exhibits heap property.
      *****************************************************/
     public void add( Integer addVal )
-    { 
+    {
+	
     }//O(?)
 
 
@@ -69,7 +71,8 @@ public class ALHeap
      * Postcondition: Tree maintains heap property.
      *****************************************************/
     public Integer removeMin()
-    { 
+    {
+	
     }//O(?)
 
 
@@ -80,7 +83,8 @@ public class ALHeap
      * Postcondition: Tree unchanged
      *****************************************************/
     private int minChildPos( int pos )
-    { 
+    {
+	
     }//O(?)
   
 
