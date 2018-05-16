@@ -29,7 +29,10 @@ public class ALHeap
      * b) ASCII representation of the tree (more complicated, more fun)
      *****************************************************/
     public String toString() 
-    { 
+    {
+	for(Integer e: _heap){
+	    System.out.print(e + "\t");
+	}
     }//O(?)
 
 
@@ -61,10 +64,30 @@ public class ALHeap
      *****************************************************/
     public void add( Integer addVal )
     {
-	
+	_heap.add(addVal);
+	//compare to parent and swap until in the right position
+	int sInd = _heap.size() -1;
+	for(int i = _heap.size(); i > 0;){
+	    //if int at sInd is smaller than the parent, swap
+	    if(_heap.get(sInd) < _heap.get(i)){
+		swap(sInd, i);
+		//and set sInd to the parent ind
+		sInd = i;
+	    }
+	    else{
+		return;
+	    }
+	    //change i to the next parent according to sInd
+	    if(sInd % 2 == 0){
+		i = sInd/2 -1;
+	    }
+	    else{
+		i = sInd/2;
+	    }
+	}
     }//O(?)
-
-
+    
+    
     /*****************************************************
      * removeMin()  ---  means of removing an element from heap
      * Removes and returns least element in heap.
