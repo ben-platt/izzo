@@ -30,9 +30,12 @@ public class ALHeap
      *****************************************************/
     public String toString() 
     {
+	String str = "";
 	for(Integer e: _heap){
+	    str = str + e + "\t"
 	    System.out.print(e + "\t");
 	}
+	return str;
     }//O(?)
 
 
@@ -107,7 +110,19 @@ public class ALHeap
      *****************************************************/
     private int minChildPos( int pos )
     {
+	int LChild = 2*(pos +1) -1;
+	int RChild = 2*(pos +1);
 	
+	//if only one child
+	if(LChild < _heap.size() -1 && RChild > _heap.size() -1){
+	    //return child position
+	    return LChild;
+	}
+	//if two children
+	if(LChild < _heap.size() -1 && RChild < _heap.size() -1){
+	    return minChildPos(RChild);
+	}
+	return -1;
     }//O(?)
   
 
