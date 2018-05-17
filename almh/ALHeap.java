@@ -32,7 +32,7 @@ public class ALHeap
     {
 	String str = "";
 	for(Integer e: _heap){
-	    str = str + e + "\t"
+	    //str = str + e + "\t";
 	    System.out.print(e + "\t");
 	}
 	return str;
@@ -70,7 +70,7 @@ public class ALHeap
 	_heap.add(addVal);
 	//compare to parent and swap until in the right position
 	int sInd = _heap.size() -1;
-	for(int i = _heap.size(); i > 0;){
+	for(int i = _heap.size() -1; i > 0;){
 	    //if int at sInd is smaller than the parent, swap
 	    if(_heap.get(sInd) < _heap.get(i)){
 		swap(sInd, i);
@@ -98,7 +98,29 @@ public class ALHeap
      *****************************************************/
     public Integer removeMin()
     {
-	
+	int min = _heap.get(0);
+	//replace the first element with the last element of the heap and remove the last element
+	_heap.set(0, _heap.get(minChildPos(0)));
+	_heap.remove(minChildPos(0));
+	//compare to children and swap until in the correct position
+	int sInd = 0;
+	for(int i = 0; i < _heap.size() -1;){
+	    //if LChild is smaller than RChild or LChild equals RChild
+	    if(_heap.get(i) <= _heap.get(i +1)){
+		//swap sInd with LChild and set sInd to current pos
+		swap(sInd, i);
+		sInd = i;
+	    }
+	    //if RChild is smaller than LChild
+	    else if(_heap.get(i) > _heap.get(i +1)){
+		//swap sInd with RChild and set sInd to current pos
+		swap(sInd, i+1);
+		sInd = i +1;
+	    }
+	    //set i to LChild of sInd(RChild = LChild + 1)
+	    i = 2*(i +1) -1;
+	}
+	return min;
     }//O(?)
 
 
@@ -147,7 +169,6 @@ public class ALHeap
     //main method for testing
     public static void main( String[] args )
     {
-	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	  ALHeap pile = new ALHeap();
 
 	  pile.add(2);
@@ -193,6 +214,7 @@ public class ALHeap
 	  System.out.println(pile);
 	  System.out.println("removing " + pile.removeMin() + "...");
 	  System.out.println(pile);
+	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     }//end main()
 
