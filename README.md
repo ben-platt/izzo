@@ -16,3 +16,9 @@ This method will iterate through the entire Arraylist to find the String that is
 ### removeMin()
 Runtime: O(n) Linear time
 This method will iterate through the entire ArrayList to find where the String that is closest to the start of the alphabet is. Then it will remove that String. Both processes are linear time making the method run in linear time.
+### Heap Todo
+- [x] `isEmpty()`
+- [x] `add( Integer addVal )`
+- [x] `peekMin()`
+- [x] `removeMin()`
+- [x] `toString()`
