@@ -117,7 +117,7 @@ public class ALHeapMax
       Integer max = peekMax();
       Integer last = _heap.remove(_heap.size() - 1);
       _heap.set(0, last);
-      maxHeapify(0);
+      ch(0);
       return max;
   }//O(log n)
 
@@ -141,11 +141,11 @@ public class ALHeapMax
       }
   }//O(1)
 
-    private void maxHeapify(int pos){
+    private void ch(int pos){
 	int maxChild = maxChildPos(pos);
 	if (maxChild != -1){
 	    swap(pos, maxChild);
-	    maxHeapify(maxChild);
+	    ch(maxChild);
 	}
     }
   //************ aux helper fxns ***************
