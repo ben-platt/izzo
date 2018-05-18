@@ -79,19 +79,26 @@ public class ALHeap
    * Postcondition: Tree exhibits heap property.
      First, add new value to ArrayList. Then keep swapping that value with its parent if it is smaller than that parent.
    *****************************************************/
-  public void add( Integer addVal )
-  {
-    _heap.add(addVal);
-    int i = _heap.size() - 1;
-    int parenti = parent(i);
+     public void add( Integer addVal )
+     {
 
-    while (parenti != i && _heap.get(i) < _heap.get(parenti)){
-      swap(i, parenti);
-      i = parenti;
-      parenti = parent(i);
-    }
+       _heap.add( addVal ); //add to end
 
-  }//O(log n)
+       int Pos = _heap.size() - 1; //added index
+       int parent; //parent index
+
+       while( Pos > 0 ) { //loop to get root swap
+         parent = (Pos-1) / 2; //loacte parent index
+
+         if ( addVal.compareTo(_heap.get(parent)) < 0 ) {//if parents bigger, then
+           swap( Pos, parent ); //swap values
+           Pos = parent; //pos changes to parents pos
+         }
+         else{
+           break; //loop exit 
+         }
+       }
+     } //O(logn)
 
 
   /*****************************************************
