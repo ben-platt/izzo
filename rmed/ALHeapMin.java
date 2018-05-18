@@ -113,7 +113,7 @@ public class ALHeapMin
       Integer min = peekMin();
       Integer last = _heap.remove(_heap.size() - 1);
       _heap.set(0, last);
-      minHeapify(0);
+      ch(0);
       return min;
   }//O(log n)
 
@@ -137,11 +137,11 @@ public class ALHeapMin
       }
   }//O(1)
 
-    private void minHeapify(int pos){
+    private void ch(int pos){
 	int minChild = minChildPos(pos);
 	if (minChild != -1){
 	    swap(pos, minChild);
-	    minHeapify(minChild);
+	    ch(minChild);
 	}
     }
   //************ aux helper fxns ***************
