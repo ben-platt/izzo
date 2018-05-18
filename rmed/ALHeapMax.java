@@ -29,11 +29,11 @@ public class ALHeapMax
   {
       if (isEmpty())
 	  return null;
-      String returnString = "" + _heap.get(0);
+      String ret= "" + _heap.get(0);
       for( int i = 1; i < _heap.size(); i++ ) {
-	  returnString += " - " + _heap.get(i);
+	  ret += " - " + _heap.get(i);
       }
-      return returnString;
+      return ret;
   }//O(n)
 
 
