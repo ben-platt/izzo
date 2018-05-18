@@ -5,164 +5,161 @@
  *****************************************************/
 
 import java.util.ArrayList;
-
 public class ALHeap
 {
 
-    //instance vars
-    private ArrayList<Integer> _heap; 
+  //instance vars
+  private ArrayList<Integer> _heap;
 
-    /*****************************************************
-     * default constructor  ---  inits empty heap
-     *****************************************************/
-    public ALHeap() 
-    {
-	_heap = new ArrayList<Integer>();
+  /*****************************************************
+   * default constructor  ---  inits empty heap
+   *****************************************************/
+  public ALHeap()
+  {
+      _heap = new ArrayList<Integer>();
+  }
+
+  /*****************************************************
+   * toString()  ---  overrides inherited method
+   * Returns either
+   * a) a level-order traversal of the tree (simple version)
+   * b) ASCII representation of the tree (more complicated, more fun)
+   *****************************************************/
+  public String toString()
+  {
+      if (isEmpty())
+	  return null;
+      String returnString = "" + _heap.get(0);
+      for( int i = 1; i < _heap.size(); i++ ) {
+	  returnString += " - " + _heap.get(i);
+      }
+      return returnString;
+  }//O(n)
+
+
+  /*****************************************************
+   * boolean isEmpty()
+   * Returns true if no meaningful elements in heap, false otherwise
+   *****************************************************/
+  public boolean isEmpty()
+  {
+      int i = 0;
+      while ( i < _heap.size() ) {
+	  if ( _heap.get(i) != null ) {
+	      return false;
+	  }
+      }
+      return true;
+  }//O(n)
+
+
+  /*****************************************************
+   * Integer peekMin()
+   * Returns min value in heap
+   * Postcondition: Heap remains unchanged.
+   *****************************************************/
+  public Integer peekMin()
+  {
+      if(_heap.size() <= 0){
+        return null;
+      }
+      else{
+        return _heap.get(0);
+      }
+  }//O(1)
+
+
+  /*****************************************************
+   * add(Integer)
+   * Inserts an element in the heap
+   * Postcondition: Tree exhibits heap property.
+     First, add new value to ArrayList. Then keep swapping that value with its parent if it is smaller than that parent.
+   *****************************************************/
+  public void add( Integer addVal )
+  {
+    _heap.add(addVal);
+    int i = _heap.size() - 1;
+    int parenti = parent(i);
+
+    while (parenti != i && _heap.get(i) < _heap.get(parenti)){
+      swap(i, parenti);
+      i = parenti;
+      parenti = parent(i);
     }
 
+  }//O(log n)
 
 
-    /*****************************************************
-     * toString()  ---  overrides inherited method
-     * Returns either 
-     * a) a level-order traversal of the tree (simple version)
-     * b) ASCII representation of the tree (more complicated, more fun)
-     *****************************************************/
-    public String toString() 
-    {
-	String str = "";
-	for(Integer e: _heap){
-	    //str = str + e + "\t";
-	    System.out.print(e + "\t");
+  /*****************************************************
+   * removeMin()  ---  means of removing an element from heap
+   * Removes and returns least element in heap.
+   * Postcondition: Tree maintains heap property.
+   First, store first element as temp variable. Next, remove last element and set the first element as the last element's value.
+   Keep swapping the newly set element with its smallest child until it has no children left.
+   *****************************************************/
+  public Integer removeMin()
+  {
+      if (isEmpty())
+	  return null;
+      else if (_heap.size() == 1)
+	  return _heap.remove(0);
+      Integer min = peekMin();
+      Integer last = _heap.remove(_heap.size() - 1);
+      _heap.set(0, last);
+      minHeapify(0);
+      return min;
+  }//O(log n)
+
+
+  /*****************************************************
+   * minChildPos(int)  ---  helper fxn for removeMin()
+   * Returns index of least child, or
+   * -1 if no children, or if input pos is not in ArrayList
+   * Postcondition: Tree unchanged
+   *****************************************************/
+  private int minChildPos( int pos )
+  {
+      if ( ( 2*pos+1 > _heap.size() - 1 ||  (2*pos+2) > _heap.size() - 1 ) || pos > _heap.size() - 1 || pos < 0 ) {
+	  return -1;
+      }
+      else if ( _heap.get(2*pos+1) > _heap.get(2*pos+2) ) {
+	  return 2*pos+2;
+      }
+      else {
+	  return 2*pos+1;
+      }
+  }//O(1)
+
+    private void minHeapify(int pos){
+	int minChild = minChildPos(pos);
+	if (minChild != -1){
+	    swap(pos, minChild);
+	    minHeapify(minChild);
 	}
-	return str;
-    }//O(?)
-
-
-    /*****************************************************
-     * boolean isEmpty()
-     * Returns true if no meaningful elements in heap, false otherwise
-     *****************************************************/
-    public boolean isEmpty()
-    {
-	return _heap.size() == 0;
-    }//O(?)
-
-
-    /*****************************************************
-     * Integer peekMin()
-     * Returns min value in heap
-     * Postcondition: Heap remains unchanged.
-     *****************************************************/
-    public Integer peekMin()
-    {
-	return _heap.get(0);
-    }//O(?)
-
-
-    /*****************************************************
-     * add(Integer) 
-     * Inserts an element in the heap
-     * Postcondition: Tree exhibits heap property.
-     *****************************************************/
-    public void add( Integer addVal )
-    {
-	_heap.add(addVal);
-	//compare to parent and swap until in the right position
-	int sInd = _heap.size() -1;
-	for(int i = _heap.size() -1; i > 0;){
-	    //if int at sInd is smaller than the parent, swap
-	    if(_heap.get(sInd) < _heap.get(i)){
-		swap(sInd, i);
-		//and set sInd to the parent ind
-		sInd = i;
-	    }
-	    else{
-		return;
-	    }
-	    //change i to the next parent according to sInd
-	    if(sInd % 2 == 0){
-		i = sInd/2 -1;
-	    }
-	    else{
-		i = sInd/2;
-	    }
-	}
-    }//O(?)
-    
-    
-    /*****************************************************
-     * removeMin()  ---  means of removing an element from heap
-     * Removes and returns least element in heap.
-     * Postcondition: Tree maintains heap property.
-     *****************************************************/
-    public Integer removeMin()
-    {
-	int min = _heap.get(0);
-	//replace the first element with the last element of the heap and remove the last element
-	_heap.set(0, _heap.get(minChildPos(0)));
-	_heap.remove(minChildPos(0));
-	//compare to children and swap until in the correct position
-	int sInd = 0;
-	for(int i = 0; i < _heap.size() -1;){
-	    //if LChild is smaller than RChild or LChild equals RChild
-	    if(_heap.get(i) <= _heap.get(i +1)){
-		//swap sInd with LChild and set sInd to current pos
-		swap(sInd, i);
-		sInd = i;
-	    }
-	    //if RChild is smaller than LChild
-	    else if(_heap.get(i) > _heap.get(i +1)){
-		//swap sInd with RChild and set sInd to current pos
-		swap(sInd, i+1);
-		sInd = i +1;
-	    }
-	    //set i to LChild of sInd(RChild = LChild + 1)
-	    i = 2*(i +1) -1;
-	}
-	return min;
-    }//O(?)
-
-
-    /*****************************************************
-     * minChildPos(int)  ---  helper fxn for removeMin()
-     * Returns index of least child, or 
-     * -1 if no children, or if input pos is not in ArrayList
-     * Postcondition: Tree unchanged
-     *****************************************************/
-    private int minChildPos( int pos )
-    {
-	int LChild = 2*(pos +1) -1;
-	int RChild = 2*(pos +1);
-	
-	//if only one child
-	if(LChild < _heap.size() -1 && RChild > _heap.size() -1){
-	    //return child position
-	    return LChild;
-	}
-	//if two children
-	if(LChild < _heap.size() -1 && RChild < _heap.size() -1){
-	    return minChildPos(RChild);
-	}
-	return -1;
-    }//O(?)
-  
-
-    //************ aux helper fxns ***************
-    private Integer minOf( Integer a, Integer b )
-    {
-	if ( a.compareTo(b) < 0 )
+    }
+  //************ aux helper fxns ***************
+  private Integer minOf( Integer a, Integer b )
+  {
+    if ( a.compareTo(b) < 0 )
 	    return a;
-	else
+    else
 	    return b;
-    }
+  }
 
-    //swap for an ArrayList
-    private void swap( int pos1, int pos2 )
-    {
-	_heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );	
+  //swap for an ArrayList
+  private void swap( int pos1, int pos2 )
+  {
+    _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );
+  }
+
+  private int parent(int i){
+    if(i % 2 == 1){
+      return (i/2);
     }
-    //********************************************
+    else{
+      return ((i - 1)/2);
+    }
+  }
 
 
 
