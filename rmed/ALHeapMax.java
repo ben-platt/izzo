@@ -68,7 +68,7 @@ public class ALHeapMax
   }//O(1)
 
 
-   
+
   /*****************************************************
    * add(Integer)
    * Inserts an element in the heap
@@ -100,7 +100,7 @@ public class ALHeapMax
    }//O(log n)
 
 
-    // KAYLI CHANGE THIS LATER
+    
   /*****************************************************
    * removeMax()  ---  means of removing an element from heap
    * Removes and returns greatest element in heap.
