@@ -45,24 +45,23 @@ public class RunMed{
   * Adds to the heaps
   ********************************************************/
   public void add(Integer newVal){
-    if(bigVals.size() == 0 && lilVals.size() == 0 || newVal< bigVals.peekMax()){
-      bigVals.add(newVal); //adding to the lower half
+    if(bigVals.size() == 0 && lilVals.size() == 0 ){
+      lilVals.add(newVal); //adding to the upper half 
     }
-    else{
-      lilVals.add(newVal); // adding to upper half
+    else if (newVal <= getMedian()){
+	    lilVals.add(newVal); // upper half  
+	}
+	else if (newVal  > getMedian()){
+	    bigVals.add(newVal); //lpwer half 
+	}
+  
+	if (lilVals.size() - bigVals.size() > 1){ //if difference is 2 or greater  
+	    bigVals.add( lilVals.removeMax() ); //move one to another 
+	}
+	else if (bigVals.size() - lilVals.size() > 1){ //if difference is 2 or greater 
+	    lilVals.add( bigVals.removeMin() ); //move one to another
+	}
     }
-
-    //adjusting the heaps
-    while(lilVals.size()-bigVals.size() >= 2){
-
-      if(lilVals.size() - bigVals.size() > 0){
-        bigVals.add(lilVals.removeMin());
-      }
-      else{
-        lilVals.add(bigVals.removeMax());
-      }
-    }
-  }
   public static void main( String[] args) { 
   }
 }
