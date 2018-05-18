@@ -46,20 +46,20 @@ public class RunMed{
   ********************************************************/
   public void add(Integer newVal){
     if(bigVals.size() == 0 && lilVals.size() == 0 ){
-      lilVals.add(newVal); //adding to the upper half 
+      bigVals.add(newVal); //adding to the upper half 
     }
     else if (newVal <= getMedian()){
-	    lilVals.add(newVal); // upper half  
+	    bigVals.add(newVal); // upper half  
 	}
 	else if (newVal  > getMedian()){
-	    bigVals.add(newVal); //lpwer half 
+	    lilVals.add(newVal); //lpwer half 
 	}
   
-	if (lilVals.size() - bigVals.size() > 1){ //if difference is 2 or greater  
-	    bigVals.add( lilVals.removeMax() ); //move one to another 
+	if (bigVals.size() - lilVals.size() > 1){ //if difference is 2 or greater  
+	    lilVals.add( bigVals.removeMax() ); //move one to another 
 	}
-	else if (bigVals.size() - lilVals.size() > 1){ //if difference is 2 or greater 
-	    lilVals.add( bigVals.removeMin() ); //move one to another
+	else if (lilVals.size() - bigVals.size() > 1){ //if difference is 2 or greater 
+	    bigVals.add( lilVals.removeMin() ); //move one to another
 	}
     }
   public static void main( String[] args) { 
