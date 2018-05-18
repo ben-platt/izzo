@@ -141,11 +141,11 @@ public class ALHeap
       }
   }//O(1)
 
-    private void minHeapify(int pos){
+    private void ch(int pos){
 	int minChild = minChildPos(pos);
 	if (minChild != -1){
 	    swap(pos, minChild);
-	    minHeapify(minChild);
+	    ch(minChild);
 	}
     }
   //************ aux helper fxns ***************
@@ -163,14 +163,7 @@ public class ALHeap
     _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );
   }
 
-  private int parent(int i){
-    if(i % 2 == 1){
-      return (i/2);
-    }
-    else{
-      return ((i - 1)/2);
-    }
-  }
+ 
 
 
 
