@@ -21,8 +21,8 @@ public class RunMed{
   * Returns running median
   *****************************************************/
   public double getMedian(){
-    if(bigVals.size() == 0 && lilVals.size() == 0 || newVal< bigVals.peekMax()){ //heaps are empty or value is less -> bigvals
-      bigVals.add(newVal);
+    if(bigVals.size() == 0 && lilVals.size() == 0 ){ //heaps are empty or value is less -> bigvals
+      throw new NoSuchElementException();
     }
     else if(lilVals.isEmpty()){  //if one side is empty
       return bigVals.peekMax();
@@ -44,7 +44,7 @@ public class RunMed{
   * void add(int newVal)
   * Adds to the heaps
   ********************************************************/
-  public void add(int newVal){
+  public void add(Integer newVal){
     if(bigVals.size() == 0 && lilVals.size() == 0 || newVal< bigVals.peekMax()){
       bigVals.add(newVal); //adding to the lower half
     }

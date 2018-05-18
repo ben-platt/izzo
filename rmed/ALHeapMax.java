@@ -76,19 +76,29 @@ public class ALHeapMax
    * Postcondition: Tree exhibits heap property.
      First, add new value to ArrayList. Then keep swapping that value with its parent if it is larger than that parent.
    *****************************************************/
-  public void add( Integer addVal )
-  {
-    _heap.add(addVal);
-    int i = _heap.size() - 1;
-    int parenti = parent(i);
+   public void add( Integer addVal )
+   {
 
-    while (parenti != i && _heap.get(i) > _heap.get(parenti)){
-      swap(i, parenti);
-      i = parenti;
-      parenti = parent(i);
-    }
 
-  }//O(log n)
+     _heap.add( addVal ); //add at end
+
+     int Pos = _heap.size() - 1; //position of added value
+     int parent; //position of parent
+
+     while( Pos > 0 ) { //swap to root
+
+       parent= (Pos-1) / 2;
+
+       if ( addVal.compareTo(_heap.get(parent)) > 0 ) {//parent is greater
+         swap( Pos, parent ); //swap values at the positions
+         Pos = parent; //pos is now parents position
+       }
+       else {
+       break; //leave loop
+     }
+     }
+
+   }//O(log n)
 
 
     // KAYLI CHANGE THIS LATER
@@ -152,15 +162,6 @@ public class ALHeapMax
   private void swap( int pos1, int pos2 )
   {
     _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );
-  }
-
-  private int parent(int i){
-    if(i % 2 == 1){
-      return (i/2);
-    }
-    else{
-      return ((i - 1)/2);
-    }
   }
 
   public int size(){
