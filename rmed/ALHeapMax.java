@@ -3,7 +3,6 @@
 // Lab03
 // 2018-05-15
 import java.util.ArrayList;
-import java.lang.Integer;
 
 public class ALHeapMax
 {
