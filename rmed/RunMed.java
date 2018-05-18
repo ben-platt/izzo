@@ -63,4 +63,6 @@ public class RunMed{
       }
     }
   }
+  public static void main( String[] args) { 
+  }
 }
