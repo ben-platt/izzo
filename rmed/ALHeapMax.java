@@ -68,7 +68,7 @@ public class ALHeapMax
   }//O(1)
 
 
-    // KAYLI CHANGE THIS LATER
+   
   /*****************************************************
    * add(Integer)
    * Inserts an element in the heap
