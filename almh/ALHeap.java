@@ -117,7 +117,7 @@ public class ALHeap
       Integer min = peekMin();
       Integer last = _heap.remove(_heap.size() - 1);
       _heap.set(0, last);
-      minHeapify(0);
+      ch(0);
       return min;
   }//O(log n)
 
